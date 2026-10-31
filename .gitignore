@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local scratch runs (regenerable)
+runs/
+
+# Trained model binaries (~150 MB): attached to a GitHub Release instead of git
+*.zip
+!app/**/*.zip
+models/trained/
+app/backend/artifacts/models/
+*.joblib
+
+# Notebook side outputs written next to the notebook when run in place
+notebooks/processed/
+notebooks/features/
+notebooks/models/
+notebooks/results/
+notebooks/inputs/
+notebooks/*.zip
+notebooks/member2_outputs/
+
+# Website (app/): dependencies and build output are recreated by npm
+app/node_modules/
+app/dist/
+app/public/rdkit/
+app/toxilab-site.zip
+*.tsbuildinfo
+
+# Secrets and machine files
+.env
+.env.*
+!.env.example
+*.local
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

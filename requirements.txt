@@ -1,0 +1,17 @@
+# Python environment for the notebooks, the pipeline script and the tests.
+# Versions are the ones the saved results and models were produced with (Python 3.13).
+# scikit-learn and xgboost must stay pinned: saved models only load reliably with the same versions.
+scikit-learn==1.6.1
+xgboost==3.4.1
+rdkit==2026.9.1
+numpy==2.5.4
+pandas==3.1.0
+scipy==1.18.1
+matplotlib==3.11.2
+joblib==1.6.0
+# running notebooks and tests
+jupyter
+nbconvert==7.17.2
+nbformat==5.11.1
+ipykernel==7.4.0
+pytest==9.1.1

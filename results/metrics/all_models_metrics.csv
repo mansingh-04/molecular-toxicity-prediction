@@ -1,0 +1,217 @@
+model,feature_set,endpoint,split,n_observed,n_positive,n_negative,roc_auc,pr_auc,status,params,config
+logistic_regression,morgan,NR-AR,val,710,42,668,0.747005988023952,0.5562220589105479,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-AR-LBD,val,623,27,596,0.8076684066616953,0.41609683070154696,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-AhR,val,626,74,552,0.8476057579318449,0.37781704152303675,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-Aromatase,val,512,36,476,0.6601307189542484,0.14157294846262775,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-ER,val,536,65,471,0.6498775110240078,0.334056258150396,trained,"{""C"": 0.001, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-ER-LBD,val,659,23,636,0.7775499042931364,0.4264127809470506,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-PPAR-gamma,val,560,24,536,0.5963152985074627,0.06855016128049943,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-ARE,val,449,110,339,0.6708635022794315,0.4169469002161251,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-ATAD5,val,659,33,626,0.6960499564333431,0.17743346601606944,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-HSE,val,537,37,500,0.7136486486486486,0.1627251666072494,trained,"{""C"": 0.001, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,SR-MMP,val,540,120,420,0.8183234126984128,0.5638159612993667,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,SR-p53,val,628,69,559,0.7020300225558063,0.2339197340192014,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-AR,test,691,14,677,0.5137159738341422,0.020960315626637728,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-AR-LBD,test,598,12,586,0.7191410693970421,0.08237936036875368,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-AhR,test,582,110,472,0.8061825885978429,0.5338083604434525,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-Aromatase,test,490,53,437,0.7854583135443202,0.3793510754702679,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-ER,test,537,72,465,0.640531660692951,0.25693534236985044,trained,"{""C"": 0.001, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,NR-ER-LBD,test,631,24,607,0.5514827018121911,0.12234352143509511,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,NR-PPAR-gamma,test,559,32,527,0.7498221062618596,0.33975437334813036,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-ARE,test,497,120,377,0.7279398762157384,0.46411691781183834,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-ATAD5,test,645,33,612,0.7253911665676371,0.16801204975419462,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,morgan,SR-HSE,test,605,55,550,0.731404958677686,0.29045261362043917,trained,"{""C"": 0.001, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,SR-MMP,test,465,89,376,0.7744740616782214,0.43264773833415715,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan
+logistic_regression,morgan,SR-p53,test,618,75,543,0.6938735420503377,0.2381954218418682,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan
+logistic_regression,descriptors,NR-AR,val,710,42,668,0.7734887368120901,0.17597553634608504,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-AR-LBD,val,623,27,596,0.7713770817797663,0.15914517427712452,trained,"{""C"": 10.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-AhR,val,626,74,552,0.8212029964747356,0.3254838124640068,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-Aromatase,val,512,36,476,0.6272467320261438,0.10363747292027617,trained,"{""C"": 10.0, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-ER,val,536,65,471,0.6173281071370245,0.17019230023519427,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-ER-LBD,val,659,23,636,0.7578616352201258,0.10261169604248423,trained,"{""C"": 10.0, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-PPAR-gamma,val,560,24,536,0.7060789800995025,0.10290329906877607,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-ARE,val,449,110,339,0.7089568248860285,0.40067287185184486,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-ATAD5,val,659,33,626,0.6173879368767548,0.12737339504966944,trained,"{""C"": 10.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-HSE,val,537,37,500,0.7204864864864865,0.18217257480341173,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-MMP,val,540,120,420,0.8539484126984127,0.5711209223320229,trained,"{""C"": 0.1, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,SR-p53,val,628,69,559,0.7033263332555547,0.23809780492193386,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-AR,test,691,14,677,0.4757332770626715,0.022034938293190295,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-AR-LBD,test,598,12,586,0.43302047781569963,0.018987411992342617,trained,"{""C"": 10.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-AhR,test,582,110,472,0.7999614791987674,0.45261484815670167,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-Aromatase,test,490,53,437,0.6790078148611891,0.19475756097805405,trained,"{""C"": 10.0, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-ER,test,537,72,465,0.6617084826762247,0.20521091730846036,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,NR-ER-LBD,test,631,24,607,0.6682111477210324,0.0826463095114808,trained,"{""C"": 10.0, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,NR-PPAR-gamma,test,559,32,527,0.7030360531309299,0.15087720448570965,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-ARE,test,497,120,377,0.7174955791335103,0.4190623993774088,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-ATAD5,test,645,33,612,0.7159833630421866,0.11661255460833579,trained,"{""C"": 10.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-HSE,test,605,55,550,0.7172396694214876,0.3120276082341971,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,descriptors,SR-MMP,test,465,89,376,0.7777163519005498,0.44114575478572654,trained,"{""C"": 0.1, ""class_weight"": ""balanced""}",LR | descriptors
+logistic_regression,descriptors,SR-p53,test,618,75,543,0.645684468999386,0.21014739588891065,trained,"{""C"": 1.0, ""class_weight"": ""none""}",LR | descriptors
+logistic_regression,morgan+descriptors,NR-AR,val,710,42,668,0.7851796407185629,0.5556109047912964,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-AR-LBD,val,623,27,596,0.8035669898086004,0.34757495959788487,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-AhR,val,626,74,552,0.859087348217783,0.4106812140109844,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-Aromatase,val,512,36,476,0.670109710550887,0.11979667044241676,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-ER,val,536,65,471,0.6393924546790789,0.23573885168043662,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-ER-LBD,val,659,23,636,0.8126196335794367,0.20135508242899877,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-PPAR-gamma,val,560,24,536,0.6749844527363184,0.10401352500013673,trained,"{""C"": 0.001, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-ARE,val,449,110,339,0.7206757843925985,0.3975265051757515,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-ATAD5,val,659,33,626,0.6771710717397618,0.14536509695136324,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-HSE,val,537,37,500,0.7440540540540541,0.1842381547683343,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-MMP,val,540,120,420,0.8663293650793651,0.609155574358234,trained,"{""C"": 0.1, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-p53,val,628,69,559,0.7302377433823339,0.25314908181625495,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-AR,test,691,14,677,0.5389322641907576,0.022910133188739842,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-AR-LBD,test,598,12,586,0.7802901023890785,0.10374218072126125,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-AhR,test,582,110,472,0.8141371340523884,0.5286314016037299,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-Aromatase,test,490,53,437,0.8113207547169811,0.34435815444103784,trained,"{""C"": 0.1, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-ER,test,537,72,465,0.6706391875746713,0.23368882079847558,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-ER-LBD,test,631,24,607,0.6756589785831961,0.16549412661151028,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,NR-PPAR-gamma,test,559,32,527,0.7412832068311196,0.19839728555446295,trained,"{""C"": 0.001, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-ARE,test,497,120,377,0.7436560565870911,0.465575434214382,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-ATAD5,test,645,33,612,0.8087244999009705,0.15212016522097965,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-HSE,test,605,55,550,0.7383471074380166,0.2978214948850371,trained,"{""C"": 0.01, ""class_weight"": ""none""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-MMP,test,465,89,376,0.8139194358116185,0.45733209470438213,trained,"{""C"": 0.1, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+logistic_regression,morgan+descriptors,SR-p53,test,618,75,543,0.7267034990791896,0.2552198742256977,trained,"{""C"": 0.01, ""class_weight"": ""balanced""}",LR | morgan+descriptors
+random_forest,morgan,NR-AR,val,710,42,668,0.7781223267750215,0.585862548255148,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-AR-LBD,val,623,27,596,0.8327119065374098,0.5491243261714163,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan
+random_forest,morgan,NR-AhR,val,626,74,552,0.8601889933411673,0.48519769736462437,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-Aromatase,val,512,36,476,0.660422502334267,0.1851700206315029,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | morgan
+random_forest,morgan,NR-ER,val,536,65,471,0.6439653764494528,0.3531839610477369,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-ER-LBD,val,659,23,636,0.8250615258408532,0.4596870220550496,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-PPAR-gamma,val,560,24,536,0.7203435945273632,0.11794561557893798,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan
+random_forest,morgan,SR-ARE,val,449,110,339,0.704840439796192,0.4394555078374407,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | morgan
+random_forest,morgan,SR-ATAD5,val,659,33,626,0.7219479136412043,0.17415619090100337,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-HSE,val,537,37,500,0.6217027027027028,0.14512336026943842,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-MMP,val,540,120,420,0.8459920634920635,0.7128476642951865,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-p53,val,628,69,559,0.7810531228124757,0.38175794794617945,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-AR,test,691,14,677,0.5521734543152564,0.025311970744036558,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-AR-LBD,test,598,12,586,0.7581769055745166,0.24478919586066514,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan
+random_forest,morgan,NR-AhR,test,582,110,472,0.811171032357473,0.5609462745566811,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-Aromatase,test,490,53,437,0.7514787789819093,0.45132530642400925,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | morgan
+random_forest,morgan,NR-ER,test,537,72,465,0.6641875746714456,0.3056508788449447,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-ER-LBD,test,631,24,607,0.6372185612300933,0.16294564492521238,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,NR-PPAR-gamma,test,559,32,527,0.7470054554079696,0.30562154696122096,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan
+random_forest,morgan,SR-ARE,test,497,120,377,0.7076259946949602,0.45123680580161457,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | morgan
+random_forest,morgan,SR-ATAD5,test,645,33,612,0.7966428995840761,0.21278988097884266,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-HSE,test,605,55,550,0.7161652892561983,0.32470257957351323,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-MMP,test,465,89,376,0.7458014582835285,0.4395660746883311,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,morgan,SR-p53,test,618,75,543,0.7089748311847759,0.32249914275571734,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan
+random_forest,descriptors,NR-AR,val,710,42,668,0.733265611633875,0.4627039309930808,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-AR-LBD,val,623,27,596,0.8152808849117574,0.41747737551252295,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-AhR,val,626,74,552,0.8421832158245203,0.5073401778418467,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,NR-Aromatase,val,512,36,476,0.6517565359477124,0.13300089777161803,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-ER,val,536,65,471,0.6901028907398333,0.36009848756928897,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-ER-LBD,val,659,23,636,0.7808312824719715,0.38123619190299185,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-PPAR-gamma,val,560,24,536,0.7014925373134328,0.09903344482609426,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,SR-ARE,val,449,110,339,0.7385358004827032,0.44683753486560573,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-ATAD5,val,659,33,626,0.6975263820311743,0.15656272619816924,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,SR-HSE,val,537,37,500,0.667864864864865,0.1622112761612102,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-MMP,val,540,120,420,0.8795039682539683,0.6670222601638143,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-p53,val,628,69,559,0.7216043141220089,0.19647684006281535,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-AR,test,691,14,677,0.5675247942603925,0.024497247307064762,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-AR-LBD,test,598,12,586,0.8005546075085324,0.1973405599215622,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-AhR,test,582,110,472,0.809148690292758,0.5517039451214809,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,NR-Aromatase,test,490,53,437,0.718513881093217,0.28633814929210627,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-ER,test,537,72,465,0.7174133811230585,0.40173294587654373,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-ER-LBD,test,631,24,607,0.6994439868204284,0.09481811785380383,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,NR-PPAR-gamma,test,559,32,527,0.6937262808349146,0.20745106816734282,trained,"{""min_samples_leaf"": 3, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,SR-ARE,test,497,120,377,0.7386052166224578,0.5131076516753508,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-ATAD5,test,645,33,612,0.8453901762725293,0.24298866478230427,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,descriptors,SR-HSE,test,605,55,550,0.7389090909090908,0.26260608223987236,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-MMP,test,465,89,376,0.7943312216112838,0.4794046428160361,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | descriptors
+random_forest,descriptors,SR-p53,test,618,75,543,0.7099079189686924,0.3503554587482356,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | descriptors
+random_forest,morgan+descriptors,NR-AR,val,710,42,668,0.7812232677502139,0.5961966973679597,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-AR-LBD,val,623,27,596,0.8409768829231916,0.5329295408051673,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-AhR,val,626,74,552,0.890716803760282,0.570205784923311,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-Aromatase,val,512,36,476,0.6974789915966386,0.1654686504342891,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-ER,val,536,65,471,0.704360607545321,0.40831605276517513,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-ER-LBD,val,659,23,636,0.8349056603773585,0.4845141190969243,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-PPAR-gamma,val,560,24,536,0.7503886815920399,0.1199165849791754,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-ARE,val,449,110,339,0.747747385358005,0.4991654498239437,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-ATAD5,val,659,33,626,0.7598751089166424,0.1843956796373387,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-HSE,val,537,37,500,0.7411351351351351,0.2180980079428853,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-MMP,val,540,120,420,0.8965079365079365,0.7503097003399873,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-p53,val,628,69,559,0.7749863887376527,0.35283962447067474,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-AR,test,691,14,677,0.4955686853766617,0.024132172319784234,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-AR-LBD,test,598,12,586,0.7949374288964732,0.23081480453059242,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-AhR,test,582,110,472,0.8292950693374422,0.5959142093695685,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-Aromatase,test,490,53,437,0.8261733085790769,0.5178766996307016,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-ER,test,537,72,465,0.7382616487455197,0.3946287928505209,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-ER-LBD,test,631,24,607,0.7170510708401977,0.21187967340351668,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,NR-PPAR-gamma,test,559,32,527,0.7961337760910816,0.32828191986393584,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-ARE,test,497,120,377,0.8026856763925729,0.6111122340445028,trained,"{""min_samples_leaf"": 1, ""class_weight"": null}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-ATAD5,test,645,33,612,0.8264260249554367,0.29544689229862575,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-HSE,test,605,55,550,0.750082644628099,0.34842044117408727,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-MMP,test,465,89,376,0.8065533110207985,0.4936334539495535,trained,"{""min_samples_leaf"": 1, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+random_forest,morgan+descriptors,SR-p53,test,618,75,543,0.7793984039287907,0.3906458638431329,trained,"{""min_samples_leaf"": 3, ""class_weight"": ""balanced_subsample""}",RF | morgan+descriptors
+xgboost,morgan,NR-AR,val,710,42,668,0.7834865982321073,0.577038086907457,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-AR-LBD,val,623,27,596,0.7946805866268954,0.43575345657905556,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-AhR,val,626,74,552,0.8592342342342343,0.46792622580888515,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 8.041450777202073}",XGB | morgan
+xgboost,morgan,NR-Aromatase,val,512,36,476,0.6610936041083101,0.14816471162904413,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 22.928934010152282}",XGB | morgan
+xgboost,morgan,NR-ER,val,536,65,471,0.6503184713375796,0.3318667569583333,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 6.8195956454121305}",XGB | morgan
+xgboost,morgan,NR-ER-LBD,val,659,23,636,0.8135767022149302,0.4704722308829836,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-PPAR-gamma,val,560,24,536,0.599424751243781,0.06123661592342235,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 39.57364341085271}",XGB | morgan
+xgboost,morgan,SR-ARE,val,449,110,339,0.6876374363100027,0.4649299447942258,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-ATAD5,val,659,33,626,0.6904831058185691,0.11455218479215702,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-HSE,val,537,37,500,0.7161621621621621,0.159805005758397,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 18.227941176470587}",XGB | morgan
+xgboost,morgan,SR-MMP,val,540,120,420,0.8346428571428571,0.6200849045968583,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-p53,val,628,69,559,0.7481009048248685,0.3419987063098675,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-AR,test,691,14,677,0.5090736442287402,0.02453559813065777,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-AR-LBD,test,598,12,586,0.7535551763367464,0.15732358031047808,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-AhR,test,582,110,472,0.7716583204930663,0.5262550457243445,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 8.041450777202073}",XGB | morgan
+xgboost,morgan,NR-Aromatase,test,490,53,437,0.7440525020508614,0.41101473289203205,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 22.928934010152282}",XGB | morgan
+xgboost,morgan,NR-ER,test,537,72,465,0.6825268817204301,0.2796580019606749,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 6.8195956454121305}",XGB | morgan
+xgboost,morgan,NR-ER-LBD,test,631,24,607,0.6383855024711697,0.16651379219785653,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,NR-PPAR-gamma,test,559,32,527,0.7966674573055029,0.2885913087798453,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 39.57364341085271}",XGB | morgan
+xgboost,morgan,SR-ARE,test,497,120,377,0.6656830238726791,0.37576510051102685,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-ATAD5,test,645,33,612,0.778322440087146,0.15396720748268294,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-HSE,test,605,55,550,0.7388925619834712,0.2680451501188857,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 18.227941176470587}",XGB | morgan
+xgboost,morgan,SR-MMP,test,465,89,376,0.7506275400430313,0.40121219854729245,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,morgan,SR-p53,test,618,75,543,0.7205402087170043,0.32455003671127647,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan
+xgboost,descriptors,NR-AR,val,710,42,668,0.7643284858853722,0.457411679056393,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-AR-LBD,val,623,27,596,0.7892741735023614,0.34525444963925445,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-AhR,val,626,74,552,0.8609356639247944,0.5578484843889976,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 8.041450777202073}",XGB | descriptors
+xgboost,descriptors,NR-Aromatase,val,512,36,476,0.6567168534080299,0.11586710419578808,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 22.928934010152282}",XGB | descriptors
+xgboost,descriptors,NR-ER,val,536,65,471,0.6879797484893025,0.3714462802823457,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-ER-LBD,val,659,23,636,0.7990155865463495,0.3854805858266393,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-PPAR-gamma,val,560,24,536,0.703202736318408,0.0845986952349134,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-ARE,val,449,110,339,0.7471976401179942,0.4469781881290206,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-ATAD5,val,659,33,626,0.7173734146577597,0.19796376346844471,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 28.01025641025641}",XGB | descriptors
+xgboost,descriptors,SR-HSE,val,537,37,500,0.6687567567567567,0.14129438476602024,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-MMP,val,540,120,420,0.8877579365079364,0.7180727361282652,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-p53,val,628,69,559,0.7059967332970366,0.2191033866726984,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-AR,test,691,14,677,0.5819793205317577,0.02504398839663796,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-AR-LBD,test,598,12,586,0.7841296928327645,0.1048333531711324,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-AhR,test,582,110,472,0.7912076271186439,0.5117565082607017,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 8.041450777202073}",XGB | descriptors
+xgboost,descriptors,NR-Aromatase,test,490,53,437,0.7125124131082423,0.2165346044715009,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 22.928934010152282}",XGB | descriptors
+xgboost,descriptors,NR-ER,test,537,72,465,0.6917861409796895,0.29432915337300447,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-ER-LBD,test,631,24,607,0.6796059857221307,0.10599451639523012,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,NR-PPAR-gamma,test,559,32,527,0.733693074003795,0.28542570265372236,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-ARE,test,497,120,377,0.7234195402298852,0.47790331392594076,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-ATAD5,test,645,33,612,0.6639681124975243,0.20994949053317308,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 28.01025641025641}",XGB | descriptors
+xgboost,descriptors,SR-HSE,test,605,55,550,0.7157190082644628,0.2820639941166504,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-MMP,test,465,89,376,0.7599659335405211,0.4140740837243428,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,descriptors,SR-p53,test,618,75,543,0.687341927562922,0.29490139154707623,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | descriptors
+xgboost,morgan+descriptors,NR-AR,val,710,42,668,0.8111633875106928,0.5814857481694967,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-AR-LBD,val,623,27,596,0.7900198856574696,0.46489012499208976,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 26.70408163265306}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-AhR,val,626,74,552,0.89683705444575,0.5617876118208155,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-Aromatase,val,512,36,476,0.694094304388422,0.12654092959956587,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 22.928934010152282}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-ER,val,536,65,471,0.6828352114976319,0.4008403850784881,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-ER-LBD,val,659,23,636,0.8096800656275637,0.4466043309195319,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-PPAR-gamma,val,560,24,536,0.6941075870646766,0.09628366044363895,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 39.57364341085271}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-ARE,val,449,110,339,0.757656208098686,0.5443231545150887,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-ATAD5,val,659,33,626,0.7493949075418724,0.16591933782358098,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-HSE,val,537,37,500,0.7535675675675677,0.207333506235945,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-MMP,val,540,120,420,0.9073412698412698,0.7716111018723032,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-p53,val,628,69,559,0.739674885276503,0.3191725851486412,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-AR,test,691,14,677,0.5738552437223043,0.026635065625917123,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-AR-LBD,test,598,12,586,0.7615187713310579,0.21655695292457575,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 26.70408163265306}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-AhR,test,582,110,472,0.8328582434514638,0.6126340866368245,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-Aromatase,test,490,53,437,0.7984758861879885,0.4517301526417732,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 300, ""scale_pos_weight_value"": 22.928934010152282}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-ER,test,537,72,465,0.714247311827957,0.3851052593769583,trained,"{""max_depth"": 6, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-ER-LBD,test,631,24,607,0.6925453047775947,0.21377690060925736,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,NR-PPAR-gamma,test,559,32,527,0.7494663187855788,0.34194234560143827,trained,"{""max_depth"": 3, ""learning_rate"": 0.05, ""scale_pos_weight"": ""balanced"", ""n_estimators"": 100, ""scale_pos_weight_value"": 39.57364341085271}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-ARE,test,497,120,377,0.7860742705570292,0.5675207598942187,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-ATAD5,test,645,33,612,0.7979302832244008,0.20767040523155697,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-HSE,test,605,55,550,0.7673719008264462,0.37866001185612336,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 100, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-MMP,test,465,89,376,0.8185811618455654,0.4793396463694117,trained,"{""max_depth"": 6, ""learning_rate"": 0.05, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors
+xgboost,morgan+descriptors,SR-p53,test,618,75,543,0.7694045426642111,0.36801376866196017,trained,"{""max_depth"": 3, ""learning_rate"": 0.1, ""scale_pos_weight"": 1.0, ""n_estimators"": 300, ""scale_pos_weight_value"": 1.0}",XGB | morgan+descriptors

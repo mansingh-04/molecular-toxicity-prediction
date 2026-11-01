@@ -1,0 +1,10 @@
+model,feature_set,split,mean_roc_auc,mean_pr_auc,n_endpoints_evaluated
+logistic_regression,morgan,train,0.8994822896925574,0.6254816608351234,12
+logistic_regression,morgan,val,0.7239224273343324,0.32296410901114314,12
+logistic_regression,morgan,test,0.7016181682774976,0.2774130908687238,12
+logistic_regression,descriptors,train,0.7839756979871422,0.24589965954223092,12
+logistic_regression,descriptors,val,0.7232241886460521,0.22161557169273582,12
+logistic_regression,descriptors,test,0.6662331804136362,0.21884374196837653,12
+logistic_regression,morgan+descriptors,train,0.9030916319281825,0.5459373886966165,12
+logistic_regression,morgan+descriptors,val,0.7486173540782316,0.29701713508517436,12
+logistic_regression,morgan+descriptors,test,0.7386343522629232,0.2687742638474747,12

@@ -1,0 +1,171 @@
+{
+  "model": "logistic_regression",
+  "feature_set": "morgan",
+  "endpoints": [
+    "NR-AR",
+    "NR-AR-LBD",
+    "NR-AhR",
+    "NR-Aromatase",
+    "NR-ER",
+    "NR-ER-LBD",
+    "NR-PPAR-gamma",
+    "SR-ARE",
+    "SR-ATAD5",
+    "SR-HSE",
+    "SR-MMP",
+    "SR-p53"
+  ],
+  "feature_config": {
+    "morgan": {
+      "radius": 2,
+      "n_bits": 2048,
+      "use_chirality": false
+    },
+    "descriptor_names": null,
+    "n_features": 2048
+  },
+  "endpoint_models": {
+    "NR-AR": {
+      "n_train_observed": 5740,
+      "n_train_positive": 248,
+      "n_train_negative": 5492,
+      "C": 1.0,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "NR-AR.joblib",
+      "status": "trained"
+    },
+    "NR-AR-LBD": {
+      "n_train_observed": 5430,
+      "n_train_positive": 196,
+      "n_train_negative": 5234,
+      "C": 0.01,
+      "class_weight": "balanced",
+      "converged": true,
+      "model_file": "NR-AR-LBD.joblib",
+      "status": "trained"
+    },
+    "NR-AhR": {
+      "n_train_observed": 5235,
+      "n_train_positive": 579,
+      "n_train_negative": 4656,
+      "C": 0.01,
+      "class_weight": "balanced",
+      "converged": true,
+      "model_file": "NR-AhR.joblib",
+      "status": "trained"
+    },
+    "NR-Aromatase": {
+      "n_train_observed": 4714,
+      "n_train_positive": 197,
+      "n_train_negative": 4517,
+      "C": 0.1,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "NR-Aromatase.joblib",
+      "status": "trained"
+    },
+    "NR-ER": {
+      "n_train_observed": 5028,
+      "n_train_positive": 643,
+      "n_train_negative": 4385,
+      "C": 0.001,
+      "class_weight": "balanced",
+      "converged": true,
+      "model_file": "NR-ER.joblib",
+      "status": "trained"
+    },
+    "NR-ER-LBD": {
+      "n_train_observed": 5560,
+      "n_train_positive": 296,
+      "n_train_negative": 5264,
+      "C": 0.01,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "NR-ER-LBD.joblib",
+      "status": "trained"
+    },
+    "NR-PPAR-gamma": {
+      "n_train_observed": 5234,
+      "n_train_positive": 129,
+      "n_train_negative": 5105,
+      "C": 1.0,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "NR-PPAR-gamma.joblib",
+      "status": "trained"
+    },
+    "SR-ARE": {
+      "n_train_observed": 4790,
+      "n_train_positive": 685,
+      "n_train_negative": 4105,
+      "C": 0.1,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "SR-ARE.joblib",
+      "status": "trained"
+    },
+    "SR-ATAD5": {
+      "n_train_observed": 5657,
+      "n_train_positive": 195,
+      "n_train_negative": 5462,
+      "C": 0.01,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "SR-ATAD5.joblib",
+      "status": "trained"
+    },
+    "SR-HSE": {
+      "n_train_observed": 5230,
+      "n_train_positive": 272,
+      "n_train_negative": 4958,
+      "C": 0.001,
+      "class_weight": "balanced",
+      "converged": true,
+      "model_file": "SR-HSE.joblib",
+      "status": "trained"
+    },
+    "SR-MMP": {
+      "n_train_observed": 4722,
+      "n_train_positive": 698,
+      "n_train_negative": 4024,
+      "C": 0.01,
+      "class_weight": "balanced",
+      "converged": true,
+      "model_file": "SR-MMP.joblib",
+      "status": "trained"
+    },
+    "SR-p53": {
+      "n_train_observed": 5426,
+      "n_train_positive": 275,
+      "n_train_negative": 5151,
+      "C": 0.01,
+      "class_weight": "none",
+      "converged": true,
+      "model_file": "SR-p53.joblib",
+      "status": "trained"
+    }
+  },
+  "selection_metric": "roc_auc",
+  "c_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0
+  ],
+  "class_weights": [
+    "none",
+    "balanced"
+  ],
+  "fallback_params": {
+    "C": 1.0,
+    "class_weight": "balanced"
+  },
+  "seed": 42,
+  "refit_on_train_plus_val": false,
+  "versions": {
+    "rdkit": "2026.09.1",
+    "scikit-learn": "1.6.1"
+  }
+}

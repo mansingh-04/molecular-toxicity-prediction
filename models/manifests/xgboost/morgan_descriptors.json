@@ -1,0 +1,260 @@
+{
+  "model": "xgboost",
+  "feature_set": "morgan+descriptors",
+  "endpoints": [
+    "NR-AR",
+    "NR-AR-LBD",
+    "NR-AhR",
+    "NR-Aromatase",
+    "NR-ER",
+    "NR-ER-LBD",
+    "NR-PPAR-gamma",
+    "SR-ARE",
+    "SR-ATAD5",
+    "SR-HSE",
+    "SR-MMP",
+    "SR-p53"
+  ],
+  "features": {
+    "source": "Member 2 saved matrices",
+    "fingerprint": {
+      "featurizer": "morgan",
+      "radius": 2,
+      "n_bits": 2048,
+      "use_chirality": false
+    },
+    "n_features": 2060,
+    "feature_order": [
+      "morgan_r2_b0000",
+      "morgan_r2_b0001",
+      "morgan_r2_b0002",
+      "..."
+    ],
+    "missing_values": "none / native"
+  },
+  "base_params": {
+    "n_estimators": "300",
+    "max_depth": "6",
+    "learning_rate": "0.1",
+    "subsample": "0.8",
+    "colsample_bytree": "0.5",
+    "min_child_weight": "1",
+    "reg_lambda": "1.0",
+    "scale_pos_weight": "1.0",
+    "tree_method": "hist",
+    "eval_metric": "logloss"
+  },
+  "grid": {
+    "max_depth": [
+      "3",
+      "6"
+    ],
+    "learning_rate": [
+      "0.05",
+      "0.1"
+    ],
+    "scale_pos_weight": [
+      "1.0",
+      "balanced"
+    ],
+    "n_estimators": [
+      "100",
+      "300"
+    ]
+  },
+  "fallback_params": {
+    "max_depth": 6,
+    "learning_rate": 0.1,
+    "n_estimators": 300,
+    "scale_pos_weight": "balanced"
+  },
+  "selection_metric": "roc_auc",
+  "seed": 42,
+  "refit_on_train_plus_val": false,
+  "endpoint_models": {
+    "NR-AR": {
+      "n_train_observed": 5740,
+      "n_train_positive": 248,
+      "n_train_negative": 5492,
+      "n_rows_fitted": 5740,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "NR-AR.json",
+      "status": "trained"
+    },
+    "NR-AR-LBD": {
+      "n_train_observed": 5430,
+      "n_train_positive": 196,
+      "n_train_negative": 5234,
+      "n_rows_fitted": 5430,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.1,
+        "scale_pos_weight": "balanced",
+        "n_estimators": 300,
+        "scale_pos_weight_value": 26.70408163265306
+      },
+      "model_file": "NR-AR-LBD.json",
+      "status": "trained"
+    },
+    "NR-AhR": {
+      "n_train_observed": 5235,
+      "n_train_positive": 579,
+      "n_train_negative": 4656,
+      "n_rows_fitted": 5235,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "NR-AhR.json",
+      "status": "trained"
+    },
+    "NR-Aromatase": {
+      "n_train_observed": 4714,
+      "n_train_positive": 197,
+      "n_train_negative": 4517,
+      "n_rows_fitted": 4714,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "scale_pos_weight": "balanced",
+        "n_estimators": 300,
+        "scale_pos_weight_value": 22.928934010152282
+      },
+      "model_file": "NR-Aromatase.json",
+      "status": "trained"
+    },
+    "NR-ER": {
+      "n_train_observed": 5028,
+      "n_train_positive": 643,
+      "n_train_negative": 4385,
+      "n_rows_fitted": 5028,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.1,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "NR-ER.json",
+      "status": "trained"
+    },
+    "NR-ER-LBD": {
+      "n_train_observed": 5560,
+      "n_train_positive": 296,
+      "n_train_negative": 5264,
+      "n_rows_fitted": 5560,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "NR-ER-LBD.json",
+      "status": "trained"
+    },
+    "NR-PPAR-gamma": {
+      "n_train_observed": 5234,
+      "n_train_positive": 129,
+      "n_train_negative": 5105,
+      "n_rows_fitted": 5234,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "scale_pos_weight": "balanced",
+        "n_estimators": 100,
+        "scale_pos_weight_value": 39.57364341085271
+      },
+      "model_file": "NR-PPAR-gamma.json",
+      "status": "trained"
+    },
+    "SR-ARE": {
+      "n_train_observed": 4790,
+      "n_train_positive": 685,
+      "n_train_negative": 4105,
+      "n_rows_fitted": 4790,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "SR-ARE.json",
+      "status": "trained"
+    },
+    "SR-ATAD5": {
+      "n_train_observed": 5657,
+      "n_train_positive": 195,
+      "n_train_negative": 5462,
+      "n_rows_fitted": 5657,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 300,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "SR-ATAD5.json",
+      "status": "trained"
+    },
+    "SR-HSE": {
+      "n_train_observed": 5230,
+      "n_train_positive": 272,
+      "n_train_negative": 4958,
+      "n_rows_fitted": 5230,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.1,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 100,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "SR-HSE.json",
+      "status": "trained"
+    },
+    "SR-MMP": {
+      "n_train_observed": 4722,
+      "n_train_positive": 698,
+      "n_train_negative": 4024,
+      "n_rows_fitted": 4722,
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 300,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "SR-MMP.json",
+      "status": "trained"
+    },
+    "SR-p53": {
+      "n_train_observed": 5426,
+      "n_train_positive": 275,
+      "n_train_negative": 5151,
+      "n_rows_fitted": 5426,
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.1,
+        "scale_pos_weight": 1.0,
+        "n_estimators": 300,
+        "scale_pos_weight_value": 1.0
+      },
+      "model_file": "SR-p53.json",
+      "status": "trained"
+    }
+  },
+  "versions": {
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1"
+  }
+}

@@ -1,0 +1,13 @@
+endpoint,model,feature_set,val_roc_auc,val_pr_auc,val_n_observed,val_n_positive,val_n_negative
+NR-AR,xgboost,morgan+descriptors,0.8111633875106928,0.5814857481694967,710,42,668
+NR-AR-LBD,random_forest,morgan+descriptors,0.8409768829231916,0.5329295408051673,623,27,596
+NR-AhR,xgboost,morgan+descriptors,0.89683705444575,0.5617876118208155,626,74,552
+NR-Aromatase,random_forest,morgan+descriptors,0.6974789915966386,0.1654686504342891,512,36,476
+NR-ER,random_forest,morgan+descriptors,0.704360607545321,0.40831605276517513,536,65,471
+NR-ER-LBD,random_forest,morgan+descriptors,0.8349056603773585,0.4845141190969243,659,23,636
+NR-PPAR-gamma,random_forest,morgan+descriptors,0.7503886815920399,0.1199165849791754,560,24,536
+SR-ARE,xgboost,morgan+descriptors,0.757656208098686,0.5443231545150887,449,110,339
+SR-ATAD5,random_forest,morgan+descriptors,0.7598751089166424,0.1843956796373387,659,33,626
+SR-HSE,xgboost,morgan+descriptors,0.7535675675675677,0.207333506235945,537,37,500
+SR-MMP,xgboost,morgan+descriptors,0.9073412698412698,0.7716111018723032,540,120,420
+SR-p53,random_forest,morgan,0.7810531228124757,0.38175794794617945,628,69,559

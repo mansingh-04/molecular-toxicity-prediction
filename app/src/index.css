@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-ink-950 text-lab-100 font-sans antialiased; overflow: hidden; }
+  :focus-visible { outline: 2px solid theme('colors.accent.400'); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: theme('colors.accent.600'); color: white; }
+  * { scrollbar-width: thin; scrollbar-color: theme('colors.ink.600') transparent; }
+}
+
+@layer components {
+  .glass { @apply bg-ink-900/85 backdrop-blur-md border border-white/[0.08] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]; }
+  .glass-soft { @apply bg-ink-900/60 backdrop-blur border border-white/[0.06]; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed select-none; }
+  .btn-primary { @apply btn bg-accent-500 text-ink-950 hover:bg-accent-400 active:bg-accent-600; }
+  .btn-secondary { @apply btn bg-ink-700 text-lab-100 hover:bg-ink-600 border border-white/[0.06]; }
+  .btn-ghost { @apply btn text-lab-200 hover:bg-white/[0.06]; }
+  .btn-danger { @apply btn bg-danger-500/15 text-danger-400 hover:bg-danger-500/25 border border-danger-500/30; }
+  .input { @apply w-full rounded-lg bg-ink-950/70 border border-white/10 px-3 py-2 text-sm text-lab-100 placeholder:text-lab-400 focus:border-accent-500 focus:outline-none; }
+  .label { @apply block text-xs font-medium uppercase tracking-wider text-lab-300 mb-1.5; }
+  .chip { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium; }
+  .kbd { @apply inline-flex min-w-[1.6rem] items-center justify-center rounded border border-white/20 bg-white/[0.06] px-1.5 py-0.5 font-mono text-[11px] text-lab-100; }
+  .h-section { @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-lab-300; }
+  .mono { @apply font-mono; }
+}
+
+/* ---------- Dashboard (light) design system ---------- */
+@layer components {
+  .d-page { @apply bg-[#f6f7f9] text-slate-700 antialiased; letter-spacing: -0.006em; }
+  .d-num { @apply font-sans font-semibold tabular-nums tracking-[-0.03em] text-slate-900; }
+  .d-card { @apply rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]; }
+  .d-eyebrow { @apply text-xs font-semibold uppercase tracking-[0.16em] text-teal-700; }
+  .d-h2 { @apply text-3xl font-semibold tracking-[-0.03em] text-slate-900 md:text-[2.5rem] md:leading-[1.1]; }
+  .d-lead { @apply text-base leading-relaxed text-slate-500 md:text-lg; }
+  .d-btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 select-none; }
+  .d-btn-dark { @apply d-btn bg-slate-900 text-white shadow-[0_6px_20px_-8px_rgba(15,23,42,0.6)] hover:-translate-y-px hover:bg-slate-800 active:translate-y-0; }
+  .d-btn-light { @apply d-btn border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50; }
+  .d-input { @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-[inset_0_1px_2px_rgba(15,23,42,0.04)] transition placeholder:text-slate-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10; }
+  .d-label { @apply mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500; }
+  .d-seg { @apply inline-flex max-w-full overflow-x-auto rounded-full border border-slate-200 bg-slate-100/70 p-1 [scrollbar-width:none]; }
+  .d-seg-btn { @apply shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-slate-500 transition-all duration-200 hover:text-slate-800; }
+  .d-seg-btn[aria-pressed='true'] { @apply bg-white text-slate-900 shadow-[0_1px_3px_rgba(15,23,42,0.12)]; }
+  .d-th { @apply py-2.5 pr-4 text-left text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-400; }
+}
+
+/* Let grid children shrink so wide tables scroll inside their card instead of widening the page. */
+.d-page .grid > * { min-width: 0; }
+
+/* Motion: entrance on scroll, flowing connectors, slow float. All off for reduced motion. */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+.grow-x { transform-origin: left; transform: scaleX(0); transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+.is-visible .grow-x, .grow-x.is-visible { transform: scaleX(1); }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+.flow-line { stroke-dasharray: 4 8; animation: flow 1.2s linear infinite; }
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.float-slow { animation: float-y 7s ease-in-out infinite; }
+.float-slower { animation: float-y 9s ease-in-out infinite; animation-delay: -3s; }
+@keyframes pulse-node { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.pulse-node { animation: pulse-node 3.2s ease-in-out infinite; }
+@keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+.shimmer { background: linear-gradient(90deg, #eef1f5 25%, #f8fafc 50%, #eef1f5 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.dot-move { transition: transform .7s cubic-bezier(.16,1,.3,1), opacity .4s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .grow-x { opacity: 1; transform: none; transition: none; }
+  .flow-line, .float-slow, .float-slower, .pulse-node, .shimmer { animation: none; }
+  .dot-move { transition: none; }
+}
+
+.molecule-svg svg { width: 100%; height: 100%; }
+.molecule-svg svg rect { fill: transparent !important; }

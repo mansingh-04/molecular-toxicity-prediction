@@ -1,0 +1,13 @@
+node_modules
+dist
+public/rdkit
+*.local
+.env
+.venv
+__pycache__
+.pytest_cache
+backend/artifacts/features/
+.DS_Store
+*.tsbuildinfo
+.claude/
+toxilab-site.zip

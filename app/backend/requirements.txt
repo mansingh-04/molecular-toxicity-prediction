@@ -1,0 +1,9 @@
+# Python side: verifying the trained models and exporting them for the browser.
+# scikit-learn and xgboost must match the versions the models were trained with.
+scikit-learn==1.6.1
+xgboost==3.4.1
+rdkit==2026.9.1
+numpy
+pandas
+joblib
+pytest

@@ -1,0 +1,241 @@
+{
+  "raw_rows": 7831,
+  "raw_duplicate_mol_id": 0,
+  "raw_duplicate_smiles_exact": 0,
+  "raw_missing_smiles": 0,
+  "raw_rows_all_labels_missing": 0,
+  "invalid_smiles_removed": 8,
+  "invalid_smiles_mol_ids": [
+    "TOX31563",
+    "TOX24724",
+    "TOX24723",
+    "TOX24552",
+    "TOX24622",
+    "TOX7518",
+    "TOX28892",
+    "TOX28623"
+  ],
+  "multi_fragment_smiles": 244,
+  "rows_without_any_label_removed": 0,
+  "duplicate_groups": 72,
+  "duplicate_rows_involved": 187,
+  "duplicate_label_conflicts_set_to_nan": 47,
+  "clean_rows": 7708,
+  "clean_label_stats": [
+    {
+      "assay": "NR-AR",
+      "active": 304,
+      "inactive": 6837,
+      "labelled": 7141,
+      "missing": 567,
+      "missing_pct": 7.36,
+      "active_pct": 4.26,
+      "imbalance (inactive:active)": 22.5
+    },
+    {
+      "assay": "NR-AR-LBD",
+      "active": 235,
+      "inactive": 6416,
+      "labelled": 6651,
+      "missing": 1057,
+      "missing_pct": 13.71,
+      "active_pct": 3.53,
+      "imbalance (inactive:active)": 27.3
+    },
+    {
+      "assay": "NR-AhR",
+      "active": 763,
+      "inactive": 5680,
+      "labelled": 6443,
+      "missing": 1265,
+      "missing_pct": 16.41,
+      "active_pct": 11.84,
+      "imbalance (inactive:active)": 7.4
+    },
+    {
+      "assay": "NR-Aromatase",
+      "active": 286,
+      "inactive": 5430,
+      "labelled": 5716,
+      "missing": 1992,
+      "missing_pct": 25.84,
+      "active_pct": 5.0,
+      "imbalance (inactive:active)": 19.0
+    },
+    {
+      "assay": "NR-ER",
+      "active": 780,
+      "inactive": 5321,
+      "labelled": 6101,
+      "missing": 1607,
+      "missing_pct": 20.85,
+      "active_pct": 12.78,
+      "imbalance (inactive:active)": 6.8
+    },
+    {
+      "assay": "NR-ER-LBD",
+      "active": 343,
+      "inactive": 6507,
+      "labelled": 6850,
+      "missing": 858,
+      "missing_pct": 11.13,
+      "active_pct": 5.01,
+      "imbalance (inactive:active)": 19.0
+    },
+    {
+      "assay": "NR-PPAR-gamma",
+      "active": 185,
+      "inactive": 6168,
+      "labelled": 6353,
+      "missing": 1355,
+      "missing_pct": 17.58,
+      "active_pct": 2.91,
+      "imbalance (inactive:active)": 33.3
+    },
+    {
+      "assay": "SR-ARE",
+      "active": 915,
+      "inactive": 4821,
+      "labelled": 5736,
+      "missing": 1972,
+      "missing_pct": 25.58,
+      "active_pct": 15.95,
+      "imbalance (inactive:active)": 5.3
+    },
+    {
+      "assay": "SR-ATAD5",
+      "active": 261,
+      "inactive": 6700,
+      "labelled": 6961,
+      "missing": 747,
+      "missing_pct": 9.69,
+      "active_pct": 3.75,
+      "imbalance (inactive:active)": 25.7
+    },
+    {
+      "assay": "SR-HSE",
+      "active": 364,
+      "inactive": 6008,
+      "labelled": 6372,
+      "missing": 1336,
+      "missing_pct": 17.33,
+      "active_pct": 5.71,
+      "imbalance (inactive:active)": 16.5
+    },
+    {
+      "assay": "SR-MMP",
+      "active": 907,
+      "inactive": 4820,
+      "labelled": 5727,
+      "missing": 1981,
+      "missing_pct": 25.7,
+      "active_pct": 15.84,
+      "imbalance (inactive:active)": 5.3
+    },
+    {
+      "assay": "SR-p53",
+      "active": 419,
+      "inactive": 6253,
+      "labelled": 6672,
+      "missing": 1036,
+      "missing_pct": 13.44,
+      "active_pct": 6.28,
+      "imbalance (inactive:active)": 14.9
+    }
+  ],
+  "n_unique_scaffolds": 2285,
+  "acyclic_molecules_empty_scaffold": 1753,
+  "split_sizes": {
+    "train": 6166,
+    "val": 771,
+    "test": 771
+  },
+  "split_active_counts": {
+    "train": {
+      "NR-AR": 248,
+      "NR-AR-LBD": 196,
+      "NR-AhR": 579,
+      "NR-Aromatase": 197,
+      "NR-ER": 643,
+      "NR-ER-LBD": 296,
+      "NR-PPAR-gamma": 129,
+      "SR-ARE": 685,
+      "SR-ATAD5": 195,
+      "SR-HSE": 272,
+      "SR-MMP": 698,
+      "SR-p53": 275
+    },
+    "val": {
+      "NR-AR": 42,
+      "NR-AR-LBD": 27,
+      "NR-AhR": 74,
+      "NR-Aromatase": 36,
+      "NR-ER": 65,
+      "NR-ER-LBD": 23,
+      "NR-PPAR-gamma": 24,
+      "SR-ARE": 110,
+      "SR-ATAD5": 33,
+      "SR-HSE": 37,
+      "SR-MMP": 120,
+      "SR-p53": 69
+    },
+    "test": {
+      "NR-AR": 14,
+      "NR-AR-LBD": 12,
+      "NR-AhR": 110,
+      "NR-Aromatase": 53,
+      "NR-ER": 72,
+      "NR-ER-LBD": 24,
+      "NR-PPAR-gamma": 32,
+      "SR-ARE": 120,
+      "SR-ATAD5": 33,
+      "SR-HSE": 55,
+      "SR-MMP": 89,
+      "SR-p53": 75
+    }
+  },
+  "split_labelled_counts": {
+    "train": {
+      "NR-AR": 5740,
+      "NR-AR-LBD": 5430,
+      "NR-AhR": 5235,
+      "NR-Aromatase": 4714,
+      "NR-ER": 5028,
+      "NR-ER-LBD": 5560,
+      "NR-PPAR-gamma": 5234,
+      "SR-ARE": 4790,
+      "SR-ATAD5": 5657,
+      "SR-HSE": 5230,
+      "SR-MMP": 4722,
+      "SR-p53": 5426
+    },
+    "val": {
+      "NR-AR": 710,
+      "NR-AR-LBD": 623,
+      "NR-AhR": 626,
+      "NR-Aromatase": 512,
+      "NR-ER": 536,
+      "NR-ER-LBD": 659,
+      "NR-PPAR-gamma": 560,
+      "SR-ARE": 449,
+      "SR-ATAD5": 659,
+      "SR-HSE": 537,
+      "SR-MMP": 540,
+      "SR-p53": 628
+    },
+    "test": {
+      "NR-AR": 691,
+      "NR-AR-LBD": 598,
+      "NR-AhR": 582,
+      "NR-Aromatase": 490,
+      "NR-ER": 537,
+      "NR-ER-LBD": 631,
+      "NR-PPAR-gamma": 559,
+      "SR-ARE": 497,
+      "SR-ATAD5": 645,
+      "SR-HSE": 605,
+      "SR-MMP": 465,
+      "SR-p53": 618
+    }
+  }
+}

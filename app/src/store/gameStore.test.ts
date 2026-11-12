@@ -59,6 +59,15 @@ describe('lab simulation', () => {
     expect((await g().analyzeHeldVial([])).ok).toBe(false);
   });
 
+  it('passes the GCN through to the analysis service like any other model', async () => {
+    const { analysisService } = await import('@/services/analysis');
+    g().pickUpVial(g().vialSlots()[0].id);
+    expect((await g().analyzeHeldVial(['logreg', 'rf', 'xgboost', 'gnn'])).ok).toBe(true);
+    const call = vi.mocked(analysisService.runAnalysis).mock.calls.at(-1)!;
+    expect(call[1].models).toContain('gnn');
+    expect((await g().analyzeHeldVial(['gnn'])).ok).toBe(true);   // the GCN on its own is a valid run
+  });
+
   it('picking another vial clears the previous report; returning empties the hands', async () => {
     const [a, b] = g().vialSlots();
     g().pickUpVial(a.id);

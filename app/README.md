@@ -2,7 +2,7 @@
 
 Website for the project **"Molecular Toxicity Prediction via Fingerprints and Molecular Graph Networks"** (Tox21, 12 assay endpoints).
 
-- **Landing page:** the dataset (Member 1) and an endpoint-wise comparison of every trained model on the same scaffold split. The GNN slot (Member 4) is shown as pending until its results are added.
+- **Landing page:** the dataset (Member 1) and an endpoint-wise comparison of every trained model on the same scaffold split, the GCN included. The GCN appears in the **Structure only** view, where every model sees the molecule and nothing else; it has no fingerprint or descriptor variant, so the other two views show a card explaining that instead.
 - **Lab simulation:** a small 3D lab where molecules are tested. Pick a sample vial from the shelf and carry it to the analyzer, or type any SMILES at the analyzer ("Use a custom molecule"). Then run Logistic Regression, Random Forest and XGBoost and read the 12-assay report.
 
 Everything runs **in the visitor's browser**. There is no server, so the site can be hosted for free as plain files.
@@ -12,9 +12,10 @@ Everything runs **in the visitor's browser**. There is no server, so the site ca
 ## How predictions work
 
 ```
-SMILES ─▶ RDKit.js cleaning ─▶ Morgan fingerprint ─▶ LR / RF / XGBoost ─▶ 12 probabilities
-          largest fragment,     radius 2, 2048 bits     exported copies of the
-          canonical SMILES                              team's trained models
+                          ┌▶ Morgan fingerprint ─▶ LR / RF / XGBoost ─┐
+SMILES ─▶ RDKit.js cleaning┤   radius 2, 2048 bits                    ├▶ 12 probabilities per model
+          largest fragment,└▶ molecular graph ───▶ GCN ───────────────┘
+          canonical SMILES     atoms, bonds, rings   3 layers, one network
 ```
 
 1. **Cleaning** follows Member 1's rule: keep the fragment with the most heavy atoms, then write canonical SMILES (`src/services/inference/featurize.ts`).
@@ -24,12 +25,15 @@ SMILES ─▶ RDKit.js cleaning ─▶ Morgan fingerprint ─▶ LR / RF / XGBoo
    - Random Forest: the average of the 300 trees' leaf probabilities
    - XGBoost: `sigmoid(base margin + sum of the trees' leaf values)`
 4. The trees are stored in a compact format: 6 bytes per node, with the left child always the next node. All three models together take 13.4 MB (5.5 MB compressed), down from 150 MB of pickled Python files. They are downloaded only when someone first predicts.
+5. **The GCN** (`src/services/inference/graphFeaturize.ts` and `gcnModel.ts`) takes the other branch: the cleaned molecule becomes a graph — atoms as nodes with their features, bonds as edges — and the network runs three graph-convolution layers, mean + max pooling and a two-layer head, giving all 12 assays at once. Its weights are a 0.3 MB float32 blob (`public/models/gcn.bin`) described by `gcn.json`; the forward pass is written out in TypeScript rather than pulling in a tensor runtime, the same choice as for the trees.
 
-**Proof that it matches the Python models:** `src/services/inference/parity.test.ts` runs every validation and test molecule from its raw SMILES through the browser code and compares with the notebooks' saved predictions. That is 55,512 predictions; the largest difference is 4×10⁻⁷, which comes from storing tree leaves as 32-bit floats.
+**Proof that it matches the Python models:** `parity.test.ts` (fingerprint models) and `gcnParity.test.ts` (the GCN) run every validation and test molecule from its raw SMILES through the browser code and compare with the notebooks' saved predictions — 55,512 and 18,504 predictions respectively. The largest differences are around 10⁻⁷, from storing weights and tree leaves as 32-bit floats.
+
+**Why the GCN avoids hybridisation.** RDKit.js exposes the molecule as JSON: atomic numbers, charges, implicit hydrogens, Kekulé bond orders, aromatic flags and rings. All of those were checked against Python RDKit on all 140,937 atoms in the dataset and match exactly. Hybridisation is *not* in that JSON — RDKit derives it internally from conjugation perception — so notebook 04 uses multiple-bond count and total valence instead. That keeps the browser and the notebook provably identical rather than approximately equal.
 
 **Molecules already in Tox21** are flagged with their split and measured labels, so a remembered training label is never mistaken for a fair prediction.
 
-Only the **Morgan-fingerprint** models run in the browser, since that is the main setting for the AML vs GNN comparison. The descriptor and combined-feature results appear in the comparison tables.
+The **descriptor and combined-feature** AML models are not served in the browser: Morgan is the structure-only setting the GCN is compared against, and those results appear in the comparison tables instead.
 
 ---
 
@@ -101,10 +105,17 @@ The trained models in `backend/artifacts/models` came from running Member 2's an
 
 ---
 
-## Adding the GNN (Member 4)
+## The GCN on this site
 
-- **Comparison:** add the GCN's validation/test rows to `public/data/metrics.json`, with `"model": "gnn"` and the same fields as the other rows. The dashboard then shows it in every chart and table automatically, and the "Pending" card disappears.
-- **Live predictions (optional):** export the trained GCN to ONNX, run it with `onnxruntime-web`, and compute the same atom and bond features in JavaScript with RDKit.js. Then check it against Python predictions the same way `parity.test.ts` does for the AML models.
+**In the comparison:** `backend/export_for_browser.py` reads `results/gnn/gnn_metrics.csv` (36 rows, `featureSet: "graph"`) into `public/data/metrics.json`, and the dashboard picks them up automatically — `ComparisonSection.tsx` maps the GCN to the `graph` feature set and shows it in the structure-only view, where every model sees the molecule and nothing else.
+
+**In the lab:** it runs on any molecule you load, alongside the three fingerprint models. `backend/export_gcn_for_browser.py` turns the notebook's checkpoint into `public/models/gcn.json` + `gcn.bin`, and `gcnModel.ts` runs the forward pass. Re-export after retraining with:
+
+```bash
+npm run models:export
+```
+
+**In model details:** its configuration, searched grid and per-assay confusion matrices appear next to the AML models, driven by the same `model_details.json`.
 
 ---
 
@@ -113,5 +124,6 @@ The trained models in `backend/artifacts/models` came from running Member 2's an
 - One scaffold split and one seed, with no confidence intervals. Small differences between models may not be meaningful.
 - Validation and test contain only ring-containing molecules, because all acyclic molecules share an empty scaffold and sit in training.
 - NR-AR and NR-AR-LBD have only 14 and 12 test actives, so their test scores are noisy.
+- The GCN's feature set is constrained by this site: it uses only atom properties RDKit can expose in a browser, which costs a little accuracy against a version using hybridisation. Notebook 04 explains the trade.
 - Predictions are probabilities of activity in in-vitro assays, not measurements or a human-toxicity verdict.
 - The 3D lab needs a keyboard and mouse and a reasonably recent GPU. The dashboard works on phones.

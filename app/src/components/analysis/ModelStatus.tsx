@@ -20,7 +20,7 @@ export function ModelStatusBanner() {
   return (
     <div className="flex items-center gap-2 rounded-lg border border-ok-500/30 bg-ok-500/10 px-3 py-2 text-xs text-ok-400">
       <Icon name="check" className="h-3.5 w-3.5" />
-      <span>Trained models ready · running in your browser (Morgan fingerprints)</span>
+      <span>Trained models ready · all four running in your browser (3 on fingerprints, the GCN on the graph)</span>
     </div>
   );
 }

@@ -1,8 +1,12 @@
 export type ModelId = 'logreg' | 'rf' | 'xgboost' | 'gnn';
 export type ModelFamily = 'aml' | 'dl';
 export type AnalysisMode = 'aml' | 'dl' | 'comparison';
-/** Input features for the AML models. 'morgan' is the main AML-vs-GNN comparison setting. */
-export type FeatureSet = 'morgan' | 'descriptors' | 'morgan+descriptors';
+/**
+ * What a model reads. The three AML settings plus 'graph', which is the GCN's only setting:
+ * it reads the molecule itself (atoms and bonds), not a precomputed vector. 'morgan' and 'graph'
+ * are the structure-only settings, so they are the fair AML-vs-GNN comparison.
+ */
+export type FeatureSet = 'morgan' | 'descriptors' | 'morgan+descriptors' | 'graph';
 
 export interface ModelInfo {
   id: ModelId;

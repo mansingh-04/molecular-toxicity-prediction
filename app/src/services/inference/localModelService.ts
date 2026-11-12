@@ -6,6 +6,8 @@ import { loadRDKit } from '@/services/chemistry/rdkitLoader';
 import { uid } from '@/services/util/random';
 import { featurize, InvalidSmilesError } from './featurize';
 import { boostedProbability, forestProbability, logisticProbability, parseTrees, type TreeEnsemble } from './treeModel';
+import { graphFromSmiles, type AtomFeatureSpec } from './graphFeaturize';
+import { gcnProbabilities, parseGcn, type GcnSpec, type GcnWeights } from './gcnModel';
 
 /**
  * Runs the team's trained models inside the browser. Nothing is sent to a server:
@@ -27,11 +29,21 @@ export interface KnownFile {
   molecules: Record<string, { id: string; split: 'train' | 'val' | 'test'; labels: (0 | 1 | null)[] }>;
 }
 
+/** The GCN's own exported description: shapes, atom-feature vocabulary and training base rates. */
+interface GcnFile extends GcnSpec {
+  atomFeatures: AtomFeatureSpec;
+  baseRate: Record<string, number>;
+}
+
 export const SERVED_MODELS: { id: ModelId; name: string }[] = [
   { id: 'logreg', name: 'Logistic Regression' },
   { id: 'rf', name: 'Random Forest' },
   { id: 'xgboost', name: 'XGBoost' },
+  { id: 'gnn', name: 'Graph Neural Network' },
 ];
+/** The three that read Morgan fingerprints; the GCN reads the molecular graph instead. */
+const FINGERPRINT_MODELS = ['logreg', 'rf', 'xgboost'] as const;
+type FingerprintModel = (typeof FINGERPRINT_MODELS)[number];
 
 const cache = new Map<string, Promise<unknown>>();
 function once<T>(key: string, load: () => Promise<T>): Promise<T> {
@@ -54,6 +66,13 @@ export const loadMetrics = () => once('metrics', () => getJson<MetricsFile>('dat
 export const loadKnown = () => once('known', () => getJson<KnownFile>('data/known.json'));
 const loadLogReg = () => once('logreg', () => getJson<Record<string, { intercept: number; weights: number[] }>>('models/logreg.json'));
 const loadForest = (kind: 'rf' | 'xgboost', ep: string) => once(`${kind}_${ep}`, () => getTrees(`models/${kind}_${ep}.bin`));
+/** The GCN: one small JSON of shapes plus one float32 blob of weights (~0.3 MB together). */
+const loadGcn = () => once('gcn', async (): Promise<{ spec: GcnFile; weights: GcnWeights }> => {
+  const spec = await getJson<GcnFile>('models/gcn.json');
+  const res = await fetch(`${BASE}models/gcn.bin`);
+  if (!res.ok) throw new AnalysisError(`Could not load models/gcn.bin (HTTP ${res.status}).`);
+  return { spec, weights: parseGcn(await res.arrayBuffer(), spec) };
+});
 const rdkitOrFail = async (): Promise<RDKitModule> => {
   const r = await loadRDKit();
   if (!r) throw new AnalysisError('The chemistry engine (RDKit.js) could not be loaded in this browser.');
@@ -62,12 +81,15 @@ const rdkitOrFail = async (): Promise<RDKitModule> => {
 
 export class LocalModelService implements AnalysisService {
   info() {
-    return { name: 'In-browser models', description: 'Logistic Regression, Random Forest and XGBoost on Morgan fingerprints, running in your browser', baseUrl: BASE };
+    return { name: 'In-browser models', description: 'Logistic Regression, Random Forest and XGBoost on Morgan fingerprints, and the GCN on the molecular graph, running in your browser', baseUrl: BASE };
   }
 
   async health() {
     await loadManifest();
-    return { status: 'ok', rdkitVersion: 'RDKit.js', loadedModels: Object.fromEntries(SERVED_MODELS.map((m) => [m.id, ['morgan']])), metricsLoaded: true, threshold: null };
+    return {
+      status: 'ok', rdkitVersion: 'RDKit.js', metricsLoaded: true, threshold: null,
+      loadedModels: Object.fromEntries(SERVED_MODELS.map((m) => [m.id, m.id === 'gnn' ? ['graph'] : ['morgan']])),
+    };
   }
 
   async listModels(): Promise<ModelMetadata[]> {
@@ -75,18 +97,25 @@ export class LocalModelService implements AnalysisService {
     const evaluation = (id: ModelId): EvaluationRow[] =>
       metrics.rows.filter((r) => r.model === id && r.split !== 'train').map((r) => ({ ...r, endpointId: r.endpoint, featureSet: r.featureSet as EvaluationRow['featureSet'] }));
     return [
-      ...SERVED_MODELS.map((m) => ({
-        modelId: m.id, name: m.name, family: 'aml' as const, version: 'seed 42 · tuned on validation ROC-AUC', available: true,
+      ...FINGERPRINT_MODELS.map((id) => ({
+        modelId: id as ModelId, name: SERVED_MODELS.find((m) => m.id === id)!.name, family: 'aml' as const,
+        version: 'seed 42 · tuned on validation ROC-AUC', available: true,
         featureSets: [{ id: 'morgan' as const, available: true }, { id: 'descriptors' as const, available: false, message: 'Not served in the browser (Morgan models only).' }, { id: 'morgan+descriptors' as const, available: false, message: 'Not served in the browser (Morgan models only).' }],
-        evaluation: evaluation(m.id),
+        evaluation: evaluation(id),
       })),
-      { modelId: 'gnn', name: 'Graph Neural Network', family: 'dl', version: 'not trained yet', available: false, featureSets: [], message: 'The GNN (Member 4) is not trained yet.', evaluation: evaluation('gnn') },
+      // The GCN runs here too: its weights are small enough to download, and the atom features are
+      // computed from RDKit's JSON so the browser reproduces the notebook exactly (gcnParity.test.ts).
+      { modelId: 'gnn' as ModelId, name: 'Graph Neural Network', family: 'dl' as const,
+        version: 'multi-task GCN · seed 42 · tuned on validation ROC-AUC', available: true,
+        featureSets: [{ id: 'graph' as const, available: true }],
+        evaluation: evaluation('gnn') },
     ];
   }
 
   async runAnalysis(input: AnalysisInput, config: AnalysisConfiguration, opts: RunOptions): Promise<AnalysisResult> {
-    const models = config.models.filter((m): m is 'logreg' | 'rf' | 'xgboost' => m !== 'gnn');
-    if (!models.length) throw new AnalysisError('Select at least one trained model.');
+    const models = config.models.filter((m): m is FingerprintModel => (FINGERPRINT_MODELS as readonly ModelId[]).includes(m));
+    const wantsGcn = config.models.includes('gnn');
+    if (!models.length && !wantsGcn) throw new AnalysisError('Select at least one trained model.');
     const startedAt = new Date().toISOString();
     const log: PipelineLogEntry[] = [];
     const step = (fraction: number, message: string) => {
@@ -102,8 +131,10 @@ export class LocalModelService implements AnalysisService {
     } catch (e) {
       throw new AnalysisError(e instanceof InvalidSmilesError ? e.message : `Could not process the structure: ${(e as Error).message}`);
     }
-    step(0.25, `Structure cleaned with RDKit.js: ${features.canonicalSmiles}`);
-    step(0.4, `Morgan fingerprint computed (radius 2, 2048 bits): ${features.bits.reduce((a, b) => a + b, 0)} bits set.`);
+    step(0.2, `Structure cleaned with RDKit.js: ${features.canonicalSmiles}`);
+    if (models.length) {
+      step(0.3, `Morgan fingerprint computed (radius 2, 2048 bits): ${features.bits.reduce((a, b) => a + b, 0)} bits set.`);
+    }
 
     const predictions: EndpointPrediction[] = [];
     for (const [k, model] of models.entries()) {
@@ -116,10 +147,19 @@ export class LocalModelService implements AnalysisService {
         else score = boostedProbability(await loadForest('xgboost', ep), features.bits, manifest.xgboostBaseMargin[ep]);
         predictions.push({ endpointId: ep, modelId: model, featureSet: 'morgan', status: 'ok', score, baseRate: manifest.baseRate[model][ep] });
       }
-      step(0.4 + (0.5 * (k + 1)) / models.length, `${SERVED_MODELS.find((m) => m.id === model)!.name}: 12 assay models evaluated.`);
+      step(0.3 + (0.45 * (k + 1)) / models.length, `${SERVED_MODELS.find((m) => m.id === model)!.name}: 12 assay models evaluated.`);
     }
-    if (config.models.includes('gnn')) {
-      predictions.push(...manifest.endpoints.map((ep) => ({ endpointId: ep, modelId: 'gnn' as const, status: 'unavailable' as const, message: 'The GNN is not trained yet.' })));
+    if (wantsGcn) {
+      if (opts.signal?.aborted) throw new AnalysisError('Analysis cancelled.');
+      const { spec, weights } = await loadGcn();
+      // The GCN reads the same standardised structure the fingerprint models saw.
+      const graph = graphFromSmiles(rdkit, features.canonicalSmiles, spec.atomFeatures);
+      step(0.8, `Molecular graph built for the GCN: ${graph.nAtoms} atoms, ${graph.neighbours.reduce((n, l) => n + l.length, 0) / 2} bonds.`);
+      const scores = gcnProbabilities(weights, graph);
+      spec.endpoints.forEach((ep, j) => predictions.push({
+        endpointId: ep, modelId: 'gnn', featureSet: 'graph', status: 'ok', score: scores[j], baseRate: spec.baseRate[ep],
+      }));
+      step(0.9, 'Graph Neural Network: one network, all 12 assays at once.');
     }
 
     const known = (await loadKnown().catch(() => undefined))?.molecules[features.canonicalSmiles];
@@ -137,7 +177,9 @@ export class LocalModelService implements AnalysisService {
       knownRecord: known ? { molId: known.id, split: known.split, labels: Object.fromEntries(manifest.endpoints.map((ep, i) => [ep, known.labels[i]])) } : null,
       mode: config.mode,
       models: [...config.models],
-      featureSet: 'morgan',
+      // What the run as a whole read. Each prediction also carries its own feature set, because a
+      // run can mix the two: fingerprints for the AML models, the graph for the GCN.
+      featureSet: models.length ? 'morgan' : 'graph',
       predictions,
       provenance: {
         kind: 'model',

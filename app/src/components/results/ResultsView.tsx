@@ -1,11 +1,21 @@
 import { Fragment, useState } from 'react';
-import type { AnalysisResult, EndpointPrediction, ModelId } from '@/types/analysis';
+import type { AnalysisResult, EndpointPrediction, FeatureSet, ModelId } from '@/types/analysis';
 import { MODELS, TOX21_ENDPOINTS, featureSetLabel } from '@/data/tox21';
 import { useGame } from '@/store/gameStore';
 import { MoleculeView2D } from '@/components/compounds/MoleculeView2D';
 import { downloadResult, heldOutMetric } from '@/services/analysis/exportResult';
 
 const fmt = (v?: number | null, d = 2) => (v === undefined || v === null ? '—' : v.toFixed(d));
+
+/**
+ * What this run actually read. A run can mix representations: the fingerprint models read Morgan
+ * bits while the GCN reads the molecular graph, so each prediction carries its own feature set.
+ */
+function featureSetsUsed(result: AnalysisResult): FeatureSet[] {
+  const used = new Set<FeatureSet>();
+  for (const p of result.predictions) if (p.status === 'ok') used.add(p.featureSet ?? result.featureSet);
+  return used.size ? [...used] : [result.featureSet];
+}
 
 export function ResultsView({ result, title }: { result: AnalysisResult; title?: string }) {
   const compound = useGame((s) => s.getCompound(result.compoundId));
@@ -24,7 +34,7 @@ export function ResultsView({ result, title }: { result: AnalysisResult; title?:
           <div className="text-lab-200">{name} · <code className="mono text-xs text-lab-300">{result.canonicalSmiles ?? result.smiles}</code></div>
           {result.inputNotes?.map((n) => <div key={n} className="text-xs text-warn-400">{n}</div>)}
           <div className="text-xs text-lab-400">
-            Features: <b className="text-lab-200">{featureSetLabel(result.featureSet)}</b> · Models: {models.map((m) => m.name).join(', ')}
+            Reads: <b className="text-lab-200">{featureSetsUsed(result).map(featureSetLabel).join(' · ')}</b> · Models: {models.map((m) => m.name).join(', ')}
           </div>
           <div className="text-xs text-lab-400">Completed {new Date(result.completedAt).toLocaleString()} · computed in your browser</div>
           <div className="flex gap-2 pt-1">
@@ -174,8 +184,10 @@ function Summary({ result }: { result: AnalysisResult }) {
 function ModelEval({ result }: { result: AnalysisResult }) {
   const rows = result.models.flatMap((id) => {
     const meta = result.provenance.modelMetadata?.find((m) => m.modelId === id);
+    // Each model is summarised on what it read here: Morgan bits, or the graph for the GCN.
+    const featureSet = result.predictions.find((p) => p.modelId === id && p.status === 'ok')?.featureSet ?? result.featureSet;
     return (['val', 'test'] as const).map((split) => {
-      const ev = (meta?.evaluation ?? []).filter((e) => e.split === split && (e.featureSet ?? 'morgan') === result.featureSet);
+      const ev = (meta?.evaluation ?? []).filter((e) => e.split === split && (e.featureSet ?? 'morgan') === featureSet);
       const mean = (k: 'rocAuc' | 'prAuc') => {
         const v = ev.map((e) => e[k]).filter((x): x is number => typeof x === 'number');
         return v.length ? v.reduce((a, b) => a + b, 0) / v.length : undefined;
@@ -186,7 +198,7 @@ function ModelEval({ result }: { result: AnalysisResult }) {
 
   return (
     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-xs text-lab-300">
-      <div className="h-section mb-1">Model performance on held-out data ({featureSetLabel(result.featureSet)})</div>
+      <div className="h-section mb-1">Model performance on held-out data ({featureSetsUsed(result).map(featureSetLabel).join(' · ')})</div>
       ROC-AUC and PR-AUC (average precision) describe how well a model separates actives from inactives on the labelled scaffold-split data. They describe the model, not this compound.
       {rows.length ? (
         <table className="mt-2 w-full max-w-md text-[11px]">

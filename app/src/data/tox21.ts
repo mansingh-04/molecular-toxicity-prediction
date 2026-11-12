@@ -20,14 +20,15 @@ export const MODELS: ModelInfo[] = [
   { id: 'logreg', name: 'Logistic Regression', short: 'LR', family: 'aml', featurization: 'Morgan fingerprint and/or 12 RDKit descriptors', description: 'Linear baseline; one classifier per endpoint (Member 2).' },
   { id: 'rf', name: 'Random Forest', short: 'RF', family: 'aml', featurization: 'Morgan fingerprint and/or 12 RDKit descriptors', description: 'Bagged decision-tree ensemble; one classifier per endpoint (Member 3).' },
   { id: 'xgboost', name: 'XGBoost', short: 'XGB', family: 'aml', featurization: 'Morgan fingerprint and/or 12 RDKit descriptors', description: 'Gradient-boosted trees; one classifier per endpoint (Member 3).' },
-  { id: 'gnn', name: 'Graph Neural Network', short: 'GNN', family: 'dl', featurization: 'Molecular graph (atoms = nodes, bonds = edges)', description: 'Graph model over 12 endpoints (Member 4, not trained yet).' },
+  { id: 'gnn', name: 'Graph Neural Network', short: 'GCN', family: 'dl', featurization: 'Molecular graph (atoms = nodes, bonds = edges)', description: 'Multi-task graph convolutional network, one shared network with 12 outputs (Member 4).' },
 ];
 
-/** AML input feature sets, in the same order and naming as the training notebooks. */
+/** Input feature sets, in the same order and naming as the training notebooks. */
 export const FEATURE_SETS: { id: FeatureSet; label: string; desc: string }[] = [
   { id: 'morgan', label: 'Morgan fingerprints', desc: '2048 bits, radius 2. The main setting for the AML vs GNN comparison.' },
   { id: 'morgan+descriptors', label: 'Morgan + descriptors', desc: 'Fingerprint bits plus 12 RDKit descriptors.' },
   { id: 'descriptors', label: 'Descriptors only', desc: '12 RDKit descriptors (weight, LogP, TPSA, …).' },
+  { id: 'graph', label: 'Molecular graph', desc: 'The molecule itself: atoms as nodes, bonds as edges. The GCN learns its own features from it.' },
 ];
 
 export const featureSetLabel = (id?: FeatureSet) => FEATURE_SETS.find((f) => f.id === (id ?? 'morgan'))?.label ?? id ?? 'Morgan fingerprints';

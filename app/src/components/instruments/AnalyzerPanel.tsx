@@ -6,7 +6,8 @@ import { MoleculeView2D } from '@/components/compounds/MoleculeView2D';
 import { ModelStatusBanner } from '@/components/analysis/ModelStatus';
 import { Icon } from '@/components/ui/Icon';
 
-const AML = MODELS.filter((m) => m.family === 'aml');
+/** Every model the browser can actually run: the three fingerprint models and the GCN. */
+const SELECTABLE = MODELS;
 
 /** Quick examples for the custom-molecule form: one from the test set, one not in Tox21 at all. */
 const EXAMPLES = [
@@ -23,7 +24,7 @@ export function AnalyzerBody() {
   const returnVial = useGame((s) => s.returnVial);
   const openPanel = useGame((s) => s.openPanel);
   const close = useGame((s) => s.closePanel);
-  const [models, setModels] = useState<ModelId[]>(AML.map((m) => m.id));
+  const [models, setModels] = useState<ModelId[]>(SELECTABLE.map((m) => m.id));
   const [customOpen, setCustomOpen] = useState(false);
 
   if (!compound || customOpen) {
@@ -55,19 +56,20 @@ export function AnalyzerBody() {
             <code className="mono break-all text-[11px] text-lab-400">{compound.canonicalSmiles ?? compound.smiles}</code>
           </div>
           <fieldset disabled={running}>
-            <legend className="label">Models (Morgan fingerprints)</legend>
+            <legend className="label">Models</legend>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
-              {AML.map((m) => (
-                <label key={m.id} className="flex items-center gap-2 text-sm text-lab-100">
+              {SELECTABLE.map((m) => (
+                <label key={m.id} className="flex items-center gap-2 text-sm text-lab-100" title={m.featurization}>
                   <input type="checkbox" className="accent-accent-500" checked={models.includes(m.id)}
                     onChange={() => setModels(models.includes(m.id) ? models.filter((x) => x !== m.id) : [...models, m.id])} />
                   {m.name}
+                  {m.family === 'dl' && <span className="rounded bg-indigo-500/15 px-1.5 text-[10px] font-semibold text-indigo-300">GRAPH</span>}
                 </label>
               ))}
-              <label className="flex items-center gap-2 text-sm text-lab-400" title="Member 4's GCN is not trained yet">
-                <input type="checkbox" disabled /> Graph Neural Network (pending)
-              </label>
             </div>
+            <p className="mt-1.5 text-[11px] text-lab-400">
+              The first three read a Morgan fingerprint; the GCN reads the molecule as a graph. All four run here, in your browser.
+            </p>
           </fieldset>
         </div>
       </div>

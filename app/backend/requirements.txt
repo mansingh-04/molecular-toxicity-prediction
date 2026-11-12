@@ -3,6 +3,8 @@
 scikit-learn==1.6.1
 xgboost==3.4.1
 rdkit==2026.9.1
+# only needed to export the GCN for the browser (backend/export_gcn_for_browser.py)
+torch==2.9.0
 numpy
 pandas
 joblib

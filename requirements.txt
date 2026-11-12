@@ -4,6 +4,8 @@
 scikit-learn==1.6.1
 xgboost==3.4.1
 rdkit==2026.9.1
+# notebook 04 only (the GCN). A CPU build is enough; the notebook installs it if it is missing.
+torch==2.9.0
 numpy==2.5.4
 pandas==3.1.0
 scipy==1.18.1

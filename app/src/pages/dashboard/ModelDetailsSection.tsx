@@ -25,6 +25,10 @@ interface EndpointDetail {
 }
 interface ModelDetail {
   modelId: ModelId;
+  /** What the model reads: 'morgan' for the AML models, 'graph' for the GCN. */
+  featureSet?: string;
+  /** True for one network with 12 outputs (the GCN), false for 12 independent classifiers. */
+  multiTask?: boolean;
   baseParams: Record<string, string> | null;
   grid: Record<string, string[]> | null;
   seed: number;
@@ -62,8 +66,11 @@ export function ModelDetailsSection({ rows }: { rows: MetricRow[] }) {
   const model = data.models.find((m) => m.modelId === active) ?? data.models[0];
   const info = COMPARED_MODELS.find((m) => m.id === model.modelId)!;
   const at = (e: EndpointDetail) => (tuned ? e.tuned : e.default);
-  const rocAuc = mean(rows.filter((r) => r.model === model.modelId && r.split === 'test' && r.featureSet === 'morgan').map((r) => r.rocAuc));
-  const prAuc = mean(rows.filter((r) => r.model === model.modelId && r.split === 'test' && r.featureSet === 'morgan').map((r) => r.prAuc));
+  // Each model is scored on what it actually reads: Morgan bits for the AML models, the graph for the GCN.
+  const featureSet = model.featureSet ?? 'morgan';
+  const scored = rows.filter((r) => r.model === model.modelId && r.split === 'test' && r.featureSet === featureSet);
+  const rocAuc = mean(scored.map((r) => r.rocAuc));
+  const prAuc = mean(scored.map((r) => r.prAuc));
   const accuracy = avg(model.endpoints, (e) => at(e).accuracy);
   const baseline = avg(model.endpoints, (e) => e.default.majorityBaseline);
   const beatsBaseline = accuracy !== undefined && baseline !== undefined && accuracy > baseline;
@@ -98,8 +105,16 @@ export function ModelDetailsSection({ rows }: { rows: MetricRow[] }) {
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">{info.family}</span>
         </div>
         <dl className="mt-4 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
-          <Field label="Input features">{model.nFeatures.toLocaleString('en-US')} Morgan bits <span className="text-slate-400">(radius 2)</span></Field>
-          <Field label="Models trained">12 <span className="text-slate-400">one per assay</span></Field>
+          <Field label="Input features">
+            {model.multiTask
+              ? <>{model.nFeatures} atom features <span className="text-slate-400">(per atom, on the graph)</span></>
+              : <>{model.nFeatures.toLocaleString('en-US')} Morgan bits <span className="text-slate-400">(radius 2)</span></>}
+          </Field>
+          <Field label="Models trained">
+            {model.multiTask
+              ? <>1 <span className="text-slate-400">one network, 12 outputs</span></>
+              : <>12 <span className="text-slate-400">one per assay</span></>}
+          </Field>
           <Field label="Random seed">{model.seed}</Field>
           <Field label="Chosen on">validation {model.selectionMetric === 'roc_auc' ? 'ROC-AUC' : model.selectionMetric}</Field>
           {model.baseParams && (
@@ -108,7 +123,7 @@ export function ModelDetailsSection({ rows }: { rows: MetricRow[] }) {
             </Field>
           )}
           {model.grid && (
-            <Field label="Tuned per assay" wide>
+            <Field label={model.multiTask ? 'Tuned once for all 12 assays' : 'Tuned per assay'} wide>
               <span className="font-mono text-xs text-slate-600">{Object.entries(model.grid).map(([k, v]) => `${k} ∈ {${v.join(', ')}}`).join(' · ')}</span>
             </Field>
           )}
@@ -178,7 +193,8 @@ export function ModelDetailsSection({ rows }: { rows: MetricRow[] }) {
           <b className="text-emerald-700">TP</b> actives correctly flagged · <b className="text-amber-700">FP</b> inactives wrongly flagged ·
           <b className="text-slate-600"> TN</b> inactives correctly passed · <b className="text-red-700">FN</b> actives missed.
           Lowering the threshold finds more actives (higher recall) at the cost of more false alarms (lower precision).
-          Library versions: {Object.entries(model.versions).filter(([, v]) => v).map(([k, v]) => `${k} ${v}`).join(', ')}.
+          {model.multiTask && <> One network predicts all 12 assays, so there are no per-assay settings to show — the configuration above applies to every row, while the decision threshold is still chosen per assay on validation.</>}
+          {' '}Library versions: {Object.entries(model.versions).filter(([, v]) => v).map(([k, v]) => `${k} ${v}`).join(', ')}.
         </p>
       </div>
     </div>

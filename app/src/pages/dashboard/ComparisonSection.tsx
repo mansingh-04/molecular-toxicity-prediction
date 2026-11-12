@@ -6,12 +6,30 @@ import { CountUp, useInView } from './motion';
 
 type Split = 'test' | 'val';
 type Metric = 'rocAuc' | 'prAuc';
+/** The three fingerprint/descriptor representations the AML models were trained on. */
 const FEATURES = [
   { id: 'morgan', label: 'Morgan' },
   { id: 'morgan+descriptors', label: 'Morgan + descriptors' },
   { id: 'descriptors', label: 'Descriptors' },
 ];
-const FEATURE_LONG: Record<string, string> = { morgan: 'Morgan fingerprints', 'morgan+descriptors': 'Morgan fingerprints + descriptors', descriptors: 'descriptors only' };
+/** The view selector. "Structure only" is the Morgan view, where the GCN also belongs. */
+const FEATURE_TABS = [
+  { id: 'morgan', label: 'Structure only' },
+  { id: 'morgan+descriptors', label: 'Morgan + descriptors' },
+  { id: 'descriptors', label: 'Descriptors' },
+];
+const STRUCTURE_ONLY = 'morgan';
+/**
+ * The GCN has no fingerprint variant: it always reads the molecular graph (feature set "graph").
+ * So it is shown only in the structure-only view, where every model sees the structure and nothing
+ * else — comparing it against models that also get 12 hand-made descriptors would not be fair.
+ */
+const featureSetFor = (model: ModelId, featureSet: string) => (model === 'gnn' ? 'graph' : featureSet);
+const FEATURE_LONG: Record<string, string> = {
+  morgan: 'structure alone (Morgan fingerprints, or the molecular graph for the GCN)',
+  'morgan+descriptors': 'Morgan fingerprints + descriptors',
+  descriptors: 'descriptors only',
+};
 
 /** Endpoint-wise comparison of every model, read from public/data/metrics.json. */
 export function ComparisonSection({ rows }: { rows: MetricRow[] }) {
@@ -21,8 +39,11 @@ export function ComparisonSection({ rows }: { rows: MetricRow[] }) {
   const [showTable, setShowTable] = useState(false);
 
   const value = (model: ModelId, endpoint: string, fs = featureSet, sp: string = split, m: Metric = metric) =>
-    rows.find((r) => r.model === model && r.endpoint === endpoint && r.featureSet === fs && r.split === sp)?.[m] ?? undefined;
-  const present = COMPARED_MODELS.filter((m) => rows.some((r) => r.model === m.id));
+    rows.find((r) => r.model === model && r.endpoint === endpoint && r.featureSet === featureSetFor(model, fs) && r.split === sp)?.[m] ?? undefined;
+  const hasResults = (model: ModelId) => rows.some((r) => r.model === model);
+  // A model appears in this view only if it has results for the representation on screen.
+  const present = COMPARED_MODELS.filter((m) => rows.some((r) => r.model === m.id && r.featureSet === featureSetFor(m.id, featureSet))
+    && (m.id !== 'gnn' || featureSet === STRUCTURE_ONLY));
   const pending = COMPARED_MODELS.filter((m) => !present.includes(m));
   const metricName = metric === 'rocAuc' ? 'ROC-AUC' : 'PR-AUC';
 
@@ -46,7 +67,7 @@ export function ComparisonSection({ rows }: { rows: MetricRow[] }) {
       {/* Controls */}
       <div className="d-card flex flex-wrap items-center gap-x-6 gap-y-3 px-5 py-4">
         <Seg label="Data" value={split} onChange={setSplit} options={[{ id: 'test', label: 'Test' }, { id: 'val', label: 'Validation' }]} />
-        <Seg label="Features" value={featureSet} onChange={setFeatureSet} options={FEATURES} />
+        <Seg label="Features" value={featureSet} onChange={setFeatureSet} options={FEATURE_TABS} />
         <Seg label="Metric" value={metric} onChange={setMetric} options={[{ id: 'rocAuc', label: 'ROC-AUC' }, { id: 'prAuc', label: 'PR-AUC' }]} />
       </div>
 
@@ -76,8 +97,19 @@ export function ComparisonSection({ rows }: { rows: MetricRow[] }) {
               <span className="text-sm font-medium text-slate-900">{m.name}</span>
               <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-semibold text-indigo-700">{m.family}</span>
             </div>
-            <div className="mt-4 flex items-center gap-2 text-sm font-medium text-indigo-700"><span className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />In training</div>
-            <p className="mt-2 text-xs leading-relaxed text-slate-500">Member 4's GCN learns directly from atoms and bonds. Its results will appear here under the same split and metrics.</p>
+            {hasResults(m.id) ? (
+              <>
+                <div className="mt-4 text-sm font-medium text-indigo-700">Reads the molecular graph</div>
+                <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                  The GCN has no fingerprint or descriptor variant — it learns from atoms and bonds. Switch to <b className="font-semibold text-slate-700">Structure only</b> to compare it with the models that also see nothing but the structure.
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="mt-4 flex items-center gap-2 text-sm font-medium text-indigo-700"><span className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />In training</div>
+                <p className="mt-2 text-xs leading-relaxed text-slate-500">Member 4's GCN learns directly from atoms and bonds. Its results will appear here under the same split and metrics.</p>
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -114,8 +146,8 @@ export function ComparisonSection({ rows }: { rows: MetricRow[] }) {
         {showTable && <MetricTable rows={rows} models={present} split={split} featureSet={featureSet} value={value} />}
       </div>
 
-      {/* Feature-set comparison */}
-      <FeatureBars models={present} value={value} metricName={metricName} split={split} />
+      {/* Feature-set comparison. The GCN is left out: it has only one representation. */}
+      <FeatureBars models={present.filter((m) => m.id !== 'gnn')} value={value} metricName={metricName} split={split} />
     </div>
   );
 }

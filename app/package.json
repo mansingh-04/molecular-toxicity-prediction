@@ -13,7 +13,7 @@
     "postinstall": "node scripts/copy-rdkit.mjs",
     "python:setup": "python3 -m venv .venv && .venv/bin/pip install -r backend/requirements.txt",
     "python:test": ".venv/bin/python -m pytest backend/tests -q",
-    "models:export": ".venv/bin/python backend/export_for_browser.py && vite-node scripts/build-known-molecules.ts",
+    "models:export": ".venv/bin/python backend/export_for_browser.py && .venv/bin/python backend/export_gcn_for_browser.py && vite-node scripts/build-known-molecules.ts",
     "models:verify": ".venv/bin/python backend/verify_models.py",
     "site:zip": "npm run build && rm -f toxilab-site.zip && cd dist && zip -qr ../toxilab-site.zip ."
   },
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.17.0",
+    "@types/node": "22.10.5",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "@types/three": "0.170.0",

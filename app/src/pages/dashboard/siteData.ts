@@ -32,7 +32,8 @@ export interface MetricRow {
 }
 
 /**
- * The models compared on the page. The GNN slot is shown as pending until its metrics are added to metrics.json.
+ * The models compared on the page. A model appears once it has rows in metrics.json; the GCN's rows
+ * carry featureSet "graph", so it is compared in the structure-only view (see ComparisonSection).
  * Colours: validated categorical palette for a white surface (fixed order, colour-blind safe).
  */
 export const COMPARED_MODELS: { id: ModelId; name: string; short: string; family: 'AML' | 'DL'; color: string }[] = [

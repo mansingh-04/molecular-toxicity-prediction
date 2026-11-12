@@ -175,6 +175,8 @@ def export_model_details():
             })
         out.append({
             "modelId": model_id,
+            "featureSet": "morgan",
+            "multiTask": False,
             "baseParams": manifest.get("base_params"),
             "grid": manifest.get("grid"),
             "seed": manifest.get("seed"),
@@ -183,8 +185,57 @@ def export_model_details():
             "versions": manifest.get("versions"),
             "endpoints": endpoints,
         })
+    gnn = gnn_model_detail()
+    if gnn:
+        out.append(gnn)
     (DATA_OUT / "model_details.json").write_text(json.dumps({"featureSet": "morgan", "models": out}, separators=(",", ":")))
     print(f"Wrote model_details.json ({sum(len(m['endpoints']) for m in out)} endpoint rows)")
+
+
+def gnn_model_detail():
+    """The same card for the GCN (notebook 04), whose shape differs from the AML models:
+    one multi-task network reading the molecular graph, so there is one configuration for all 12
+    assays rather than one per assay, and its predictions come from its own results folder."""
+    import pandas as pd
+    folder = RESULTS / "gnn"
+    manifest_file = folder / "manifest.json"
+    if not manifest_file.is_file():
+        print("note: no GCN manifest in results/gnn, so the model-details section will omit it")
+        return None
+    manifest = json.loads(manifest_file.read_text())
+    preds = {s: pd.read_csv(folder / "predictions" / f"gnn_graph_{s}.csv").dropna(subset=["y_true"])
+             for s in ("val", "test")}
+    endpoints = []
+    for ep in ENDPOINTS:
+        v = preds["val"].query("endpoint == @ep")
+        t = preds["test"].query("endpoint == @ep")
+        if v.empty or t.empty:
+            continue
+        tuned = best_threshold(v["y_true"].to_numpy(), v["y_prob"].to_numpy())
+        y, prob = t["y_true"].to_numpy(), t["y_prob"].to_numpy()
+        endpoints.append({
+            "endpoint": ep,
+            "params": None,                       # one configuration for all 12 assays; it is on the card above
+            "nTrainObserved": manifest["n_train_observed"][ep],
+            "nTrainPositive": manifest["n_train_positive"][ep],
+            "default": threshold_metrics(y, prob, 0.5),
+            "tuned": threshold_metrics(y, prob, tuned),
+        })
+    stopping = manifest.get("early_stopping", {})
+    return {
+        "modelId": "gnn",
+        "featureSet": manifest.get("feature_set", "graph"),
+        "multiTask": True,
+        "baseParams": {**{k: str(v) for k, v in manifest.get("chosen_params", {}).items()},
+                       "epochs": str(stopping.get("best_epoch", "")),
+                       "readout": "mean + max pooling"},
+        "grid": {k: [str(x) for x in v] for k, v in manifest.get("grid", {}).items()},
+        "seed": manifest.get("seed"),
+        "selectionMetric": manifest.get("selection_metric"),
+        "nFeatures": manifest.get("graph", {}).get("n_atom_features"),
+        "versions": manifest.get("versions"),
+        "endpoints": endpoints,
+    }
 
 
 def export_site_data():
@@ -194,14 +245,26 @@ def export_site_data():
     report = json.loads((DATA / "preprocessing_report.json").read_text())
     (DATA_OUT / "dataset.json").write_text(json.dumps(report, indent=1))
 
+    clean = lambda v: None if pd.isna(v) else round(float(v), 6)
     rows = []
     for model_id, folder, short in METRIC_FILES:
         df = pd.read_csv(RESULTS / folder / f"{short}_metrics.csv")
         for r in df.itertuples():
-            clean = lambda v: None if pd.isna(v) else round(float(v), 6)
             rows.append({"model": model_id, "featureSet": r.feature_set, "split": r.split, "endpoint": r.endpoint,
                          "rocAuc": clean(r.roc_auc), "prAuc": clean(r.pr_auc), "nObserved": int(r.n_observed),
                          "nPositive": int(r.n_positive), "nNegative": int(r.n_negative)})
+
+    # The GCN (notebook 04) is one multi-task model reading the molecular graph, so it has a single
+    # feature set ("graph") and no per-endpoint model files. It is read from its own metrics file
+    # rather than METRIC_FILES, which assumes the AML layout (per-endpoint models, three feature sets).
+    gnn_metrics = RESULTS / "gnn" / "gnn_metrics.csv"
+    if gnn_metrics.is_file():
+        for r in pd.read_csv(gnn_metrics).itertuples():
+            rows.append({"model": "gnn", "featureSet": r.feature_set, "split": r.split, "endpoint": r.endpoint,
+                         "rocAuc": clean(r.roc_auc), "prAuc": clean(r.pr_auc), "nObserved": int(r.n_observed),
+                         "nPositive": int(r.n_positive), "nNegative": int(r.n_negative)})
+    else:
+        print(f"note: {gnn_metrics.relative_to(ROOT)} not found, so the dashboard will show the GCN as pending")
     (DATA_OUT / "metrics.json").write_text(json.dumps({"selectionMetric": "validation ROC-AUC", "rows": rows}, separators=(",", ":")))
     print(f"Wrote dataset.json and metrics.json ({len(rows)} metric rows) to {DATA_OUT.relative_to(ROOT)}")
     export_model_details()

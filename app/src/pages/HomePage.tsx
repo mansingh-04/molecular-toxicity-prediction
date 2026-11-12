@@ -39,10 +39,13 @@ export function HomePage() {
   }, []);
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+  // Structure-only setting: Morgan fingerprints for the AML models, the molecular graph for the GCN.
   const best = data && COMPARED_MODELS
-    .map((m) => ({ m, v: mean(data.metrics.filter((r) => r.model === m.id && r.split === 'test' && r.featureSet === 'morgan').map((r) => r.rocAuc)) }))
+    .map((m) => ({ m, v: mean(data.metrics.filter((r) => r.model === m.id && r.split === 'test'
+      && r.featureSet === (m.id === 'gnn' ? 'graph' : 'morgan')).map((r) => r.rocAuc)) }))
     .filter((x) => x.v !== undefined)
     .sort((a, b) => b.v! - a.v!)[0];
+  const trainedModels = data ? COMPARED_MODELS.filter((m) => data.metrics.some((r) => r.model === m.id)).length : 0;
 
   return (
     <div ref={scroller} className="d-page h-full overflow-y-auto">
@@ -103,8 +106,8 @@ export function HomePage() {
             <div className="d-card grid grid-cols-2 divide-slate-100 md:grid-cols-4 md:divide-x">
               <Stat label="Clean molecules" sub={data ? `from ${data.dataset.raw_rows.toLocaleString('en-US')} raw` : ''}>{data ? <CountUp value={data.dataset.clean_rows} /> : '—'}</Stat>
               <Stat label="Tox21 assays" sub="7 nuclear receptor · 5 stress"><CountUp value={12} duration={900} /></Stat>
-              <Stat label="Models" sub="3 trained (AML) · GCN pending"><CountUp value={3} duration={900} /><span className="text-slate-300"> + 1</span></Stat>
-              <Stat label="Best mean test ROC-AUC" sub={best ? `${best.m.name}, Morgan` : ''}>{best ? <CountUp value={best.v!} decimals={3} /> : '—'}</Stat>
+              <Stat label="Models compared" sub="3 on fingerprints · 1 on the graph">{trainedModels ? <CountUp value={trainedModels} duration={900} /> : '—'}</Stat>
+              <Stat label="Best mean test ROC-AUC" sub={best ? `${best.m.name}, structure only` : ''}>{best ? <CountUp value={best.v!} decimals={3} /> : '—'}</Stat>
             </div>
           </Reveal>
         </div>
@@ -192,7 +195,7 @@ function Stat({ label, sub, children }: { label: string; sub: string; children: 
 function Pipeline() {
   const lanes = [
     { tag: 'Pipeline A · Machine learning', color: '#2a78d6', steps: [['SMILES', 'text input'], ['RDKit cleaning', 'largest fragment, canonical'], ['Morgan fingerprint', 'radius 2 · 2048 bits'], ['LR · RF · XGBoost', 'one model per assay'], ['12 probabilities', 'one per assay']], status: 'Trained' },
-    { tag: 'Pipeline B · Deep learning', color: '#6250d6', steps: [['SMILES', 'text input'], ['Molecular graph', 'atoms = nodes, bonds = edges'], ['GCN', 'masked loss for missing labels'], ['Graph pooling', 'one vector per molecule'], ['12 probabilities', 'one per assay']], status: 'In progress' },
+    { tag: 'Pipeline B · Deep learning', color: '#6250d6', steps: [['SMILES', 'text input'], ['Molecular graph', 'atoms = nodes, bonds = edges'], ['GCN', 'masked loss for missing labels'], ['Graph pooling', 'mean + max over atoms'], ['12 probabilities', 'one shared network']], status: 'Trained' },
   ];
   return (
     <div className="grid gap-5">
